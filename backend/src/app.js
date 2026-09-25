@@ -17,9 +17,9 @@ res.status(200).send({
 const dirname=path.resolve()
 
 if(ENV.NODE_ENV==="production"){
-    app.use(express.static(path.join(dirname,"/frontend/dist")))
+    app.use(express.static(path.join(dirname,"../frontend/dist")))
     app.get('/{*any}',(req,res)=>{
-        res.sendFile(path.join(dirname,"/frontend/dist/index.html"))
+        res.sendFile(path.join(dirname,"../frontend/dist/index.html"))
     })
 }
 

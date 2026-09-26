@@ -3,7 +3,7 @@ import path from "path"
 import ENV from "./lib/env.js"
 import cors from "cors"
 import { serve } from "inngest/express";
-import { inngest, functions } from "./src/inngest"
+import { inngest, functions } from "./lib/inngest.js"
 
 const app = express()
 

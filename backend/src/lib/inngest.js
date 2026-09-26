@@ -11,14 +11,14 @@ export const inngest = new Inngest({
 
 const synUser = inngest.createFunction(
     { id: 'sync-user' },
-    { event: "clerk/user.create" },
+    { event: "clerk/user.created" },
     async ({ event }) => {
         const { id, first_name, last_name, image_url, email_addresses, } = event.data
         await connectDB()
         await User.create(
             {
                 clerkID: id,
-                name: `${first_name || ""} + ${last_name || ""}`,
+                name: `${first_name || ""} ${last_name || ""}`,
                 email: email_addresses[0]?.email_addresses,
                 profileImage: image_url
             })

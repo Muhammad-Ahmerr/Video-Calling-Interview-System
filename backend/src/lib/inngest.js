@@ -8,7 +8,6 @@ export const inngest = new Inngest({
 })
 
 
-
 const synUser = inngest.createFunction(
     { id: 'sync-user' },
     { event: "clerk/user.created" },
@@ -25,6 +24,7 @@ const synUser = inngest.createFunction(
     }
 
 )
+
 
 
 const deleteUserFromDB=inngest.createFunction(

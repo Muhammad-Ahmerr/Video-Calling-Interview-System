@@ -10,9 +10,17 @@ export const chatClient = StreamChat.getInstance(
 
 export const upsertStreamUser =async(userData)=>{
 try {
-   const response= await chatClient.upsertUser(userData)
-    console.log('user upSerted Successfully',userData);
-    return response
+   const response = await chatClient.upsertUser(userData);
+
+console.log("UPSERT RESPONSE:", response);
+
+const result = await chatClient.queryUsers(
+    { id: { $eq: userData.id } }
+);
+
+console.log("STREAM USER FOUND:", result.users);
+
+return response;
 } catch (error) {
     console.error("error in upsertStreamUser",error)
     throw error

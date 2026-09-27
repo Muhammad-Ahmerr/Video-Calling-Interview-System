@@ -1,6 +1,5 @@
 import { Inngest } from "inngest";
 import User from "../models/User.js"
-import connectDB from "./db.js"
 import { deleteStreamUser, upsertStreamUser } from "./stream.js";
 
 // this allow us to communicate with Inngest
@@ -27,7 +26,7 @@ const syncUser = inngest.createFunction(
             id:newUser.clerkID.toString(),
             name:newUser.name,
             email:newUser.email,
-            profileImage:newUser.profileImage
+            image:newUser.profileImage
          })  
     }
 

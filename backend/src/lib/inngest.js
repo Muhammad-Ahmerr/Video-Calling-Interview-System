@@ -21,6 +21,8 @@ const syncUser = inngest.createFunction(
                 email: email_addresses[0]?.email_address,
                 profileImage: image_url
             })
+            
+            
     }
 
 )

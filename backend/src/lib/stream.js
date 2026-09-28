@@ -14,13 +14,6 @@ try {
 
 console.log("UPSERT RESPONSE:", response);
 
-const result = await chatClient.queryUsers(
-    { id: { $eq: userData.id } }
-);
-
-console.log("STREAM USER FOUND:", result.users);
-
-return response;
 } catch (error) {
     console.error("error in upsertStreamUser",error)
     throw error
@@ -30,8 +23,7 @@ return response;
 export const deleteStreamUser=async(userID)=>{
     try {
       const response=  await chatClient.deleteUser(userID)
-        console.log("user Deleted in Stream Successfully",userID);
-        return response
+        console.log("user Deleted in Stream Successfully",response);
     } catch (error) {
         console.error("error in deleteStreamUser",error)
         throw error

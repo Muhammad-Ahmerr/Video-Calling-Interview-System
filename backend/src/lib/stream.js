@@ -17,7 +17,7 @@ try {
 
 } catch (error) {
     console.error("error in upsertStreamUser",error)
-    throw error
+    throw error  
 } 
 }
 

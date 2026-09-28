@@ -25,7 +25,7 @@ export const deleteStreamUser=async(userID)=>{
     try {
       const response=  await chatClient.deleteUser(userID)
         console.log("user Deleted in Stream Successfully",response);
-        return response 
+        return response  
     } catch (error) {
         console.error("error in deleteStreamUser",error)
         throw error

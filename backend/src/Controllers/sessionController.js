@@ -5,7 +5,7 @@ export const createSession = async (req, res) => {
     try {
         const { problem, difficulty } = req.body
         const userID = req.user._id
-        const clerkID = req.user.clerkID
+        const clerkId = req.user.clerkId
 
         if (!problem || !difficulty) {
             return res.status(400).json({ message: "Problem and Difficulty are required" })
@@ -24,7 +24,7 @@ export const createSession = async (req, res) => {
         //create a stream video call
         await streamClient.video.call("default", callID).getOrCreate({
             data: {
-                created_by_id: clerkID,
+                created_by_id: clerkId,
                 custom: { problem, difficulty, sessionId: session._id.toString() }
             }
         })
@@ -32,8 +32,8 @@ export const createSession = async (req, res) => {
         //chat message
         const channel = chatClient.channel("messaging", callID, {
             name: `${problem} Session`,
-            created_by_id: clerkID,
-            members: [clerkID]
+            created_by_id: clerkId,
+            members: [clerkId]
         })
 
         await channel.create()
@@ -49,7 +49,7 @@ export const createSession = async (req, res) => {
 
 export const getActiveSessions = async (req, res) => {
     try {
-        const sessions = await Session.find({ status: "active" }).populate("host", "name profileImage email clearkId").sort({ createdAt: -1 }).limit(20)
+        const sessions = await Session.find({ status: "active" }).populate("host", "name profileImage email clerkId").sort({ createdAt: -1 }).limit(20)
         res.status(200).json({
             sessions
         })
@@ -91,7 +91,7 @@ export const joinSession = async (req, res) => {
     try {
         const { id } = req.params
         const userId = req.user._id
-        const clerkId = req.user.clerkID
+        const clerkId = req.user.clerkId
 
         const session = await Session.findById(id)
         if (!session) {
@@ -112,7 +112,7 @@ export const joinSession = async (req, res) => {
         session.participant = userId
         await session.save()
 
-        const channel = chatClient.channel("message", session.callID)
+        const channel = chatClient.channel("messaging", session.callID)
         await channel.addMembers([clerkId])
 
         return res.status(200).json({ session })

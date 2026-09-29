@@ -6,6 +6,7 @@ import { serve } from "inngest/express";
 import { inngest, functions } from "./lib/inngest.js"
 import { clerkMiddleware } from '@clerk/express'
 import chatRouter from "./Routes/chatRoute.js"
+import sessionRouter from "./Routes/sessionRoute.js"
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.use(clerkMiddleware()) //this add auth field for request like req.auth()
 app.use(express.json())
 app.use("/api/inngest", serve({ client: inngest, functions }));
 app.use("/api/chat",chatRouter)
+app.use("/api/session",sessionRouter)
 
 app.get('/health', (req, res) => {
     res.status(200).send({
